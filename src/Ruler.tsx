@@ -1,33 +1,7 @@
-import React, {
-  FC,
-  MutableRefObject,
-  useRef,
-  useEffect,
-  useState,
-} from 'react';
+import React, { FC, useRef, useEffect, useState } from 'react';
+import { Props } from './_types';
 
-export type Target =
-  | (() => Element)
-  | Element
-  | MutableRefObject<Element>
-  | Window
-  | Document;
-
-export type Props<T extends Target = Target> = {
-  target?: T;
-  height?: number;
-  width?: number;
-  backgroundColor?: string;
-  lineColor?: string;
-  fontColor?: string;
-  min?: number;
-  max?: number;
-  zoom?: number;
-  horizontal: boolean;
-  onHover?: (ev: HTMLElementEventMap['mousemove']) => void;
-};
-
-export const Ruler: FC<Props> = props => {
+const Ruler: FC<Props> = props => {
   const {
     backgroundColor = '#000',
     lineColor = '#FFF',
@@ -140,10 +114,7 @@ export const Ruler: FC<Props> = props => {
       }
       i++;
     } while (i <= max);
-    text.forEach((item, i) => {
-      if (item.val == '1000') {
-        console.log(i);
-      }
+    text.forEach(item => {
       drawTxt(ctx, item.val, item.x + 4, height * 0.5);
     });
   };
@@ -218,3 +189,4 @@ export const Ruler: FC<Props> = props => {
     </canvas>
   );
 };
+export default Ruler;

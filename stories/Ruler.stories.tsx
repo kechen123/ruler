@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Ruler, Props } from '../src/Ruler';
+import Ruler from '../src/Ruler';
+import { Props } from '../src/_types';
 
 // 这是组件的标题
 const meta: Meta = {

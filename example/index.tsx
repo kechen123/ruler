@@ -1,8 +1,9 @@
 import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-// import * as ReactDOM from 'react-dom/client';
-import { Thing, Button, Ruler } from '../.';
+// import { Thing, Button, Ruler } from '../.';
+import Ruler from '../.';
+// import { Ruler } from 'data-v-ruler';
 
 const App = () => {
   return (

@@ -1837,6 +1837,11 @@ data-urls@^1.1.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
+data-v-ruler@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/data-v-ruler/-/data-v-ruler-0.1.0.tgz#af9e66b9b75448603392b2541863a60ca861f8f8"
+  integrity sha512-Sntf+EMudcokflGeccXMaf/PTkAYgZU9nOADJpERZnjMWNUutfpGoYiYg6eEKwmvfboOsOZ7npIDJIDAgI4D6w==
+
 deasync@^0.1.14:
   version "0.1.26"
   resolved "https://registry.npmmirror.com/deasync/-/deasync-0.1.26.tgz#87f54440034b87afc1e6a46667930c4e06363256"
