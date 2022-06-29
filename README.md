@@ -3,14 +3,13 @@
 ### yarn
 
 ```sh
-yarn add data-v-ruler
+yarn add @kedachen/ruler
 ```
 
 ## 🚀 How to use
 
 ```code
-import Ruler from "data-v-ruler";
-
+import Ruler from "@kedachen/ruler";
 
 const App = () => {
   return <Ruler height={26} zoom={1} min={-120} lineColor="red" />;

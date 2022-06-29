@@ -770,6 +770,11 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@kedachen/ruler@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/@kedachen/ruler/-/ruler-0.1.2.tgz#6e261e39612ed0e4659a682a33051a7b12694e58"
+  integrity sha512-Sdk6KUxZVAQrOOOekkl9UUZQUPNof9e87oSo+34tAkUB9ThDK3YZ52Bu3FyV/nMbQbsn6TYG2H/nWol5fQIzJg==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.npmmirror.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -1836,11 +1841,6 @@ data-urls@^1.1.0:
     abab "^2.0.0"
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
-
-data-v-ruler@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/data-v-ruler/-/data-v-ruler-0.1.0.tgz#af9e66b9b75448603392b2541863a60ca861f8f8"
-  integrity sha512-Sntf+EMudcokflGeccXMaf/PTkAYgZU9nOADJpERZnjMWNUutfpGoYiYg6eEKwmvfboOsOZ7npIDJIDAgI4D6w==
 
 deasync@^0.1.14:
   version "0.1.26"

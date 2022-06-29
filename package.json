@@ -1,5 +1,5 @@
 {
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -35,7 +35,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "data-v-ruler",
+  "name": "@kedachen/ruler",
   "author": "kechen",
   "module": "dist/ruler.esm.js",
   "size-limit": [
