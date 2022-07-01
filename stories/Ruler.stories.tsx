@@ -12,46 +12,44 @@ const meta: Meta = {
       control: {
         type: 'number',
       },
+      table: { defaultValue: { summary: 30 } },
     },
     width: {
       control: {
         type: 'number',
       },
+      table: { defaultValue: { summary: 500 } },
     },
     backgroundColor: {
       control: {
         type: 'color',
       },
+      table: { defaultValue: { summary: '#000' } },
     },
-    lineColor: {
-      control: {
-        type: 'color',
-      },
-    },
-    fontColor: {
-      control: {
-        type: 'color',
-      },
-    },
+
     min: {
       control: {
         type: 'number',
       },
+      table: { defaultValue: { summary: 0 } },
     },
     max: {
       control: {
         type: 'number',
       },
+      table: { defaultValue: { summary: 500 } },
     },
     zoom: {
       control: {
         type: 'number',
       },
+      table: { defaultValue: { summary: 1 } },
     },
     horizontal: {
       control: {
         type: 'boolean',
       },
+      table: { defaultValue: { summary: true } },
     },
   },
   parameters: {
@@ -59,31 +57,31 @@ const meta: Meta = {
   },
 };
 
-const Default: Story<Props> = args => <Ruler {...args} />;
+const Default: Story<Props> = args => {
+  return (
+    <div style={{ background: '#dc8282', padding: '20px' }}>
+      <Ruler {...args} />
+    </div>
+  );
+};
 Default.args = {
-  height: 26,
-  width: 2000,
+  height: 46,
+  width: 300,
   backgroundColor: '#000',
-  lineColor: '#FFF',
-  fontColor: '#FFF',
-  min: 0,
-  max: 2000,
-  zoom: 1,
-  horizontal: true,
 };
 
 const Vertical: Story<Props> = args => {
-  return <Ruler {...args} />;
+  return (
+    <div style={{ background: '#dc8282', padding: '20px' }}>
+      <Ruler {...args} />
+    </div>
+  );
 };
 Vertical.args = {
   height: 220,
   width: 26,
-  backgroundColor: '#000',
-  lineColor: '#FFF',
-  fontColor: '#FFF',
   min: 0,
-  max: 220,
-  zoom: 1,
+  max: 200,
   horizontal: false,
 };
 export default meta;

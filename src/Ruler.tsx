@@ -1,20 +1,39 @@
 import React, { FC, useRef, useEffect, useState } from 'react';
-import { Props } from './_types';
 
-const Ruler: FC<Props> = props => {
+import { Props, LineStyle, TextStyle } from './_types';
+
+const Ruler: FC<Props> = (props: Props) => {
   const {
     backgroundColor = '#000',
-    lineColor = '#FFF',
-    fontColor = '#FFF',
     min = 0,
-    max = 1000,
+    max = 500,
     zoom = 1,
     horizontal = true,
   } = props;
-  let { height = 30, width = 1000 } = props;
+  const { height = 30, width = 500 } = props;
+  let canvasHeight = height,
+    canvasWidth = width;
+  if (!horizontal) {
+    [canvasWidth, canvasHeight] = [canvasHeight, canvasWidth];
+  }
+  const { scaleLineStyle = {}, textStyle = {} } = props;
+  const {
+    color: lineColor = '#FFF',
+    width: lineWidth = 1,
+    shortLength = canvasHeight * 0.3,
+    mediumLength = canvasHeight * 0.5,
+    longLength = canvasHeight * 1,
+  }: LineStyle = scaleLineStyle;
+  const {
+    color: textColor = '#FFF',
+    size: textSize = 12,
+    align: textAlign = 'left',
+    baseLine: textBaseLine = 'middle',
+    top: textTop = canvasHeight * 0.5,
+    left: textLeft = 6,
+  }: TextStyle = textStyle;
 
   const [hover, setHover] = useState(false);
-
   const ruler = useRef<HTMLCanvasElement | null>(null);
 
   const init = () => {
@@ -38,28 +57,15 @@ const Ruler: FC<Props> = props => {
   };
 
   const drawRuler = (ctx: CanvasRenderingContext2D) => {
+    //清空画布
+    ctx.clearRect(0, 0, width, height);
     if (!horizontal) {
       ctx.translate(width, 0);
       ctx.rotate((Math.PI / 180) * 90);
-      [width, height] = [height, width];
     }
-    //清空画布
-    ctx.clearRect(0, 0, width, height);
     //背景填充
     ctx.fillStyle = backgroundColor;
-    ctx.fillRect(0, 0, width, height);
-    //边线
-    ctx.beginPath();
-    ctx.save();
-    ctx.strokeStyle = lineColor;
-    ctx.lineWidth = 1;
-    ctx.translate(0.5, 0.5);
-    ctx.lineCap = 'round';
-    ctx.moveTo(0, height - 1);
-    ctx.lineTo(width, height - 1);
-    ctx.stroke();
-    ctx.restore();
-    ctx.closePath();
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
   };
 
   // 标尺中每小格代表的宽度(根据scale的不同实时变化)
@@ -93,29 +99,35 @@ const Ruler: FC<Props> = props => {
       }
 
       let lx = mx;
-      let ly = height * 0.7;
+      let ly = height - shortLength; //短线(最小刻度)y坐标
       if (!horizontal) {
-        ly = height * 0.3;
+        ly = shortLength;
       }
       let txt = start + i * smallScaleValue;
-      drawLine(ctx, mx, my, lx, ly);
-      if (Math.abs(txt) % scaleValue === 0 || x === 0) {
-        ctx.strokeStyle = lineColor;
-        let lx = mx;
-        let ly = height * 0.4;
-        if (!horizontal) {
-          ly = height * 0.6;
-        }
-        drawLine(ctx, mx, my, lx, ly);
-        text.push({
-          x,
+      if (i % 10 === 0) {
+        ly = height - longLength; //长线(最大刻度)y坐标
+        let t = {
+          x: mx + textLeft,
+          y: textTop,
           val: txt.toString(),
-        });
+        };
+        if (!horizontal) {
+          ly = longLength;
+          // [t.x, t.y] = [t.y, t.x];
+        }
+
+        text.push(t);
+      } else if (i % 5 === 0) {
+        ly = height - mediumLength; //中线(最大刻度)y坐标
+        if (!horizontal) {
+          ly = mediumLength;
+        }
       }
+      drawLine(ctx, mx, my, lx, ly);
       i++;
     } while (i <= max);
     text.forEach(item => {
-      drawTxt(ctx, item.val, item.x + 4, height * 0.5);
+      drawTxt(ctx, item.val, item.x, item.y);
     });
   };
 
@@ -129,7 +141,7 @@ const Ruler: FC<Props> = props => {
     ctx.beginPath();
     ctx.save();
     ctx.strokeStyle = lineColor;
-    ctx.lineWidth = 1;
+    ctx.lineWidth = lineWidth;
     ctx.moveTo(startX + 0.5, startY + 0.5);
     ctx.lineTo(endX + 0.5, endY + 0.5);
     ctx.stroke();
@@ -144,10 +156,10 @@ const Ruler: FC<Props> = props => {
   ) => {
     //添加数字文本
     ctx.beginPath();
-    ctx.font = '12px Arial';
-    ctx.fillStyle = fontColor;
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'middle';
+    ctx.font = `${textSize}px Arial`;
+    ctx.fillStyle = textColor;
+    ctx.textAlign = textAlign;
+    ctx.textBaseline = textBaseLine;
     ctx.fillText(txt, x, y);
     ctx.closePath();
   };
