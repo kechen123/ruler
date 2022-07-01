@@ -8,7 +8,7 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
-    "@kedachen/ruler": "^0.1.2",
+    "@kedachen/ruler": "^0.1.4",
     "react-app-polyfill": "^1.0.0"
   },
   "alias": {
