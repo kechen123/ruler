@@ -6,6 +6,11 @@ import Ruler from '../.';
 // import Ruler from '@kedachen/ruler';
 
 const App = () => {
+  const [zoom, setZoom] = React.useState(1);
+  setTimeout(() => {
+    setZoom(0.5);
+  }, 10000);
+
   return (
     <div
       style={{
@@ -39,8 +44,8 @@ const App = () => {
       <Ruler
         height={30}
         width={221}
-        zoom={1}
-        min={-20}
+        zoom={zoom}
+        min={0}
         scaleLineStyle={{
           shortLength: 10,
           mediumLength: 14,
@@ -50,13 +55,13 @@ const App = () => {
           return `${val}px`;
         }}
         onMouseOver={number => {
-          console.log(number);
+          console.log('over>>>' + number);
         }}
         onMouseOut={number => {
-          console.log(number);
+          console.log('out>>>' + number);
         }}
         onMouseMove={number => {
-          console.log(number);
+          // console.log(number);
         }}
       />
       {/* <Ruler height={26} zoom={1.2} min={-120} lineColor="red" /> */}
