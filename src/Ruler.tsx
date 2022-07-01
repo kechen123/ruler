@@ -177,26 +177,26 @@ const Ruler: FC<Props> = (props: Props) => {
 
   const mouseOver = (ev: HTMLElementEventMap['mouseover']) => {
     setHover(true);
-    const number = ev.offsetX - Math.abs(min);
+    const number = (ev.offsetX - Math.abs(min)) / zoom;
     props.onMouseOver && props?.onMouseOver(number, ev);
   };
 
   const mouseOut = (ev: HTMLElementEventMap['mouseout']) => {
     setHover(false);
-    const number = ev.offsetX - Math.abs(min);
+    const number = (ev.offsetX - Math.abs(min)) / zoom;
     props.onMouseOut && props?.onMouseOut(number, ev);
   };
 
   const mouseMove = (ev: HTMLElementEventMap['mousemove']) => {
     if (hover) {
-      const number = ev.offsetX - Math.abs(min);
+      const number = (ev.offsetX - Math.abs(min)) / zoom;
       props.onMouseMove && props?.onMouseMove(number, ev);
     }
   };
 
   useEffect(() => {
     init();
-  }, []);
+  }, [props]);
 
   useEffect(() => {
     if (!ruler.current) return;
@@ -217,4 +217,4 @@ const Ruler: FC<Props> = (props: Props) => {
     </canvas>
   );
 };
-export default Ruler;
+export default React.memo(Ruler);
