@@ -109,7 +109,7 @@ const Ruler: FC<Props> = (props: Props) => {
         let t = {
           x: mx + textLeft,
           y: textTop,
-          val: txt.toString(),
+          val: txt,
         };
         if (!horizontal) {
           ly = longLength;
@@ -148,9 +148,20 @@ const Ruler: FC<Props> = (props: Props) => {
     ctx.closePath();
   };
 
+  const getTxt = (txt: number) => {
+    try {
+      if (props.textFormat) {
+        return props.textFormat(txt);
+      }
+      throw new Error();
+    } catch (error) {
+      return txt.toString();
+    }
+  };
+
   const drawTxt = (
     ctx: CanvasRenderingContext2D,
-    txt: string,
+    txt: number,
     x: number,
     y: number
   ) => {
@@ -160,21 +171,26 @@ const Ruler: FC<Props> = (props: Props) => {
     ctx.fillStyle = textColor;
     ctx.textAlign = textAlign;
     ctx.textBaseline = textBaseLine;
-    ctx.fillText(txt, x, y);
+    ctx.fillText(getTxt(txt), x, y);
     ctx.closePath();
   };
 
-  const mouseOver = () => {
+  const mouseOver = (ev: HTMLElementEventMap['mouseover']) => {
     setHover(true);
+    const number = ev.offsetX - Math.abs(min);
+    props.onMouseOver && props?.onMouseOver(number, ev);
   };
 
-  const mouseOut = () => {
+  const mouseOut = (ev: HTMLElementEventMap['mouseout']) => {
     setHover(false);
+    const number = ev.offsetX - Math.abs(min);
+    props.onMouseOut && props?.onMouseOut(number, ev);
   };
 
   const mouseMove = (ev: HTMLElementEventMap['mousemove']) => {
     if (hover) {
-      props.onHover && props?.onHover(ev);
+      const number = ev.offsetX - Math.abs(min);
+      props.onMouseMove && props?.onMouseMove(number, ev);
     }
   };
 

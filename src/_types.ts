@@ -32,5 +32,8 @@ export type Props = {
   max?: number;
   zoom?: number;
   horizontal?: boolean;
-  onHover?: (ev: HTMLElementEventMap['mousemove']) => void;
+  textFormat?: (scale: number) => string;
+  onMouseOver?: (num: number, ev: HTMLElementEventMap['mouseover']) => void;
+  onMouseOut?: (num: number, ev: HTMLElementEventMap['mouseout']) => void;
+  onMouseMove?: (num: number, ev: HTMLElementEventMap['mousemove']) => void;
 };

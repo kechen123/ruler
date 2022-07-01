@@ -19,7 +19,7 @@ const App = () => {
       {/* <Ruler height={26} zoom={0.2} min={-120} lineColor="red" /> */}
       {/* <Ruler height={26} zoom={0.4} min={-120} lineColor="red" /> */}
       {/* <Ruler height={26} zoom={0.8} min={-120} lineColor="red" /> */}
-      <Ruler
+      {/* <Ruler
         width={30}
         height={420}
         zoom={1}
@@ -33,18 +33,30 @@ const App = () => {
           top: 20,
         }}
         horizontal={false}
-      />
+      /> */}
       <br />
       <br />
       <Ruler
         height={30}
         width={221}
         zoom={1}
-        min={0}
+        min={-20}
         scaleLineStyle={{
           shortLength: 10,
           mediumLength: 14,
           longLength: 30,
+        }}
+        textFormat={(val: number) => {
+          return `${val}px`;
+        }}
+        onMouseOver={number => {
+          console.log(number);
+        }}
+        onMouseOut={number => {
+          console.log(number);
+        }}
+        onMouseMove={number => {
+          console.log(number);
         }}
       />
       {/* <Ruler height={26} zoom={1.2} min={-120} lineColor="red" /> */}
