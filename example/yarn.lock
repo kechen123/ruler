@@ -770,10 +770,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@kedachen/ruler@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.npmjs.org/@kedachen/ruler/-/ruler-0.1.2.tgz#6e261e39612ed0e4659a682a33051a7b12694e58"
-  integrity sha512-Sdk6KUxZVAQrOOOekkl9UUZQUPNof9e87oSo+34tAkUB9ThDK3YZ52Bu3FyV/nMbQbsn6TYG2H/nWol5fQIzJg==
+"@kedachen/ruler@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.npmjs.org/@kedachen/ruler/-/ruler-0.1.4.tgz#ec3b5c3933583cef95057525ede54611e1db33e9"
+  integrity sha512-ZYFwwzqbLh2YJnDs55xY8MSALD2OGWee00yt8LC55kvCY8vUPSfR8qQ11xtLvKx0HyT+GtnbEKCoSOfIWJebow==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
