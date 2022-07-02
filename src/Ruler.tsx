@@ -175,22 +175,31 @@ const Ruler: FC<Props> = (props: Props) => {
     ctx.closePath();
   };
 
-  const mouseOver = (ev: HTMLElementEventMap['mouseover']) => {
-    setHover(true);
-    const number = (ev.offsetX - Math.abs(min)) / zoom;
-    props.onMouseOver && props?.onMouseOver(number, ev);
-  };
-
-  const mouseOut = (ev: HTMLElementEventMap['mouseout']) => {
-    setHover(false);
-    const number = (ev.offsetX - Math.abs(min)) / zoom;
-    props.onMouseOut && props?.onMouseOut(number, ev);
-  };
-
   const mouseMove = (ev: HTMLElementEventMap['mousemove']) => {
-    if (hover) {
-      const number = (ev.offsetX - Math.abs(min)) / zoom;
-      props.onMouseMove && props?.onMouseMove(number, ev);
+    if (!ruler.current) {
+      return;
+    }
+
+    const mouseX = ev.clientX;
+    const mouseY = ev.clientY;
+    const { left, right, top, bottom } = ruler.current.getBoundingClientRect();
+    const mx = mouseX >= left && mouseX <= right;
+    const my = mouseY >= top && mouseY <= bottom;
+    if (mx && my) {
+      if (!hover) {
+        setHover(true);
+        props.onMouseOver && props?.onMouseOver(ev);
+      }
+      let x = Math.ceil(mouseX - left) - 1;
+      let y = Math.ceil(mouseY - top) - 1;
+      x = x / zoom;
+      y = y / zoom;
+      props.onMouseMove && props?.onMouseMove(x, ev);
+    } else {
+      if (hover) {
+        setHover(false);
+        props.onMouseOut && props?.onMouseOut(ev);
+      }
     }
   };
 
@@ -200,14 +209,10 @@ const Ruler: FC<Props> = (props: Props) => {
 
   useEffect(() => {
     if (!ruler.current) return;
-    ruler.current.addEventListener('mouseover', mouseOver);
-    ruler.current.addEventListener('mouseout', mouseOut);
-    ruler.current.addEventListener('mousemove', mouseMove);
+    window.document.addEventListener('mousemove', mouseMove);
     return () => {
       if (!ruler.current) return;
-      ruler.current.removeEventListener('mouseover', mouseOver);
-      ruler.current.removeEventListener('mouseout', mouseOut);
-      ruler.current.removeEventListener('mousemove', mouseMove);
+      window.document.removeEventListener('mousemove', mouseMove);
     };
   }, [hover]);
 

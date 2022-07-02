@@ -7,9 +7,9 @@ import Ruler from '../.';
 
 const App = () => {
   const [zoom, setZoom] = React.useState(1);
-  setTimeout(() => {
-    setZoom(0.5);
-  }, 10000);
+  // setTimeout(() => {
+  //   setZoom(0.5);
+  // }, 10000);
 
   return (
     <div
@@ -61,7 +61,7 @@ const App = () => {
           console.log('out>>>' + number);
         }}
         onMouseMove={number => {
-          // console.log(number);
+          console.log(number);
         }}
       />
       {/* <Ruler height={26} zoom={1.2} min={-120} lineColor="red" /> */}
