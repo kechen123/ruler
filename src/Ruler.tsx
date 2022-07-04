@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect, useState } from 'react';
+import React, { FC, useRef, useEffect } from 'react';
 
 import { Props, LineStyle, TextStyle } from './_types';
 
@@ -33,7 +33,6 @@ const Ruler: FC<Props> = (props: Props) => {
     left: textLeft = 6,
   }: TextStyle = textStyle;
 
-  const [hover, setHover] = useState(false);
   const ruler = useRef<HTMLCanvasElement | null>(null);
 
   const init = () => {
@@ -175,46 +174,9 @@ const Ruler: FC<Props> = (props: Props) => {
     ctx.closePath();
   };
 
-  const mouseMove = (ev: HTMLElementEventMap['mousemove']) => {
-    if (!ruler.current) {
-      return;
-    }
-
-    const mouseX = ev.clientX;
-    const mouseY = ev.clientY;
-    const { left, right, top, bottom } = ruler.current.getBoundingClientRect();
-    const mx = mouseX >= left && mouseX <= right;
-    const my = mouseY >= top && mouseY <= bottom;
-    if (mx && my) {
-      if (!hover) {
-        setHover(true);
-        props.onMouseOver && props?.onMouseOver(ev);
-      }
-      let x = Math.ceil(mouseX - left) - 1;
-      let y = Math.ceil(mouseY - top) - 1;
-      x = x / zoom;
-      y = y / zoom;
-      props.onMouseMove && props?.onMouseMove(x, ev);
-    } else {
-      if (hover) {
-        setHover(false);
-        props.onMouseOut && props?.onMouseOut(ev);
-      }
-    }
-  };
-
   useEffect(() => {
     init();
   }, [props]);
-
-  useEffect(() => {
-    if (!ruler.current) return;
-    window.document.addEventListener('mousemove', mouseMove);
-    return () => {
-      if (!ruler.current) return;
-      window.document.removeEventListener('mousemove', mouseMove);
-    };
-  }, [hover]);
 
   return (
     <canvas ref={ruler}>
